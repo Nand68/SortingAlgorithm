@@ -1,28 +1,7 @@
 import java.util.*;
-class MergeSort
-{
-	public static void main(String[] args){
-	    int[] arr = {1,7,8,4,2,3};
-	    int n = arr.length;
-	    sort(arr,0,n-1);
-	    System.out.println(Arrays.toString(arr));
 
-	}
-
-	public static void sort(int arr[], int l, int r)
-    {
-        if (l < r) {
-
-            int m = l + (r - l) / 2;
-            sort(arr, l, m);
-            sort(arr, m + 1, r);
-            merge(arr, l, m, r);
-            
-        }
-    }
-    public static void merge(int arr[], int low, int mid, int high)
-    {
-        // Find sizes of two subarrays to be merged
+class Solution {
+    private static void merge(int[] arr, int low, int mid, int high) {
         ArrayList<Integer> temp = new ArrayList<>(); // temporary array
         int left = low;      // starting index of left half of arr
         int right = mid + 1;   // starting index of right half of arr
@@ -57,5 +36,31 @@ class MergeSort
             arr[i] = temp.get(i - low);
         }
     }
+
+    public static void mergeSort(int[] arr, int low, int high) {
+        if (low >= high) return;
+        int mid = (low + high) / 2 ;
+        mergeSort(arr, low, mid);  // left half
+        mergeSort(arr, mid + 1, high); // right half
+        merge(arr, low, mid, high);  // merging sorted halves
+    }
 }
-        
+public class MergeSort {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = 7;
+        int arr[] = { 9, 4, 7, 6, 3, 1, 5 };
+        System.out.println("Before sorting array: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+        Solution.mergeSort(arr, 0, n - 1);
+        System.out.println("After sorting array: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+}
